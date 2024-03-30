@@ -21,6 +21,27 @@ const SideBar_Main = ({ children }) => {
     setTree,
   } = useContextProvider();
 
+  // const [isFolderPopUpOpen, setIsFolderPopupOpen] = useState(false);
+
+  // const openFolderPopup = () => {
+  //     setIsFolderPopupOpen(true)
+  // }
+  // const closeFolderPopup = () => {
+  //     setIsFolderPopupOpen(false)
+  // }
+  /* 
+    const menuItems = [
+        {
+        name: 'All Tasks',
+        path: '/',
+        id: 1,
+        },
+        {
+        name: 'Completed',
+        path: '/',
+        id: 2,
+        },
+    ]; */
   const data = [
     {
       folder_name: 'personnel',
@@ -29,6 +50,7 @@ const SideBar_Main = ({ children }) => {
         {
           title: 'pour demain',
           folder_name: 'personnel',
+          id: 1,
           text: 'faire X, faire Y, faire Z',
           date: '29-01-2015',
           completed: false,

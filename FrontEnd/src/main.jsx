@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     errorElement:<ErrorPage />,
     children :[
       {
-        path: ":taskFolder/:taskName/:taskId",
+        path: ":taskFolder/:taskName/",
         element : <TaskPage />,
       }
     ]
