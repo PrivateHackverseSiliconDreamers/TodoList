@@ -11,6 +11,6 @@ pour lancer en mode normale
 
 voir le dossier img 
 
-# img p[our la conception]
+# img [pour la conception]
 
 
