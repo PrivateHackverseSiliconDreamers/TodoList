@@ -1,3 +1,4 @@
+import React,{ useState, useEffect } from 'react';
 import save_icon from '../assets/images/save_icon.svg';
 import bin_icon from '../assets/images/bin_icon.svg';
 import share_icon from '../assets/images/share_icon.svg';
@@ -5,7 +6,6 @@ import green_lock_icon from '../assets/images/green_lock_icon.svg';
 import ReactQuill from 'react-quill';
 import { useParams } from 'react-router-dom';
 import DeleteNote_popup from '../components/DeleteNote_popup';
-import { useState, useEffect } from 'react';
 import './stylesheet/TaskPage.css';
 import { useContextProvider } from '../Contexts/ context';
 import LockedNote_popup from '../components/LockedNote_popup';
@@ -44,7 +44,7 @@ const TaskPage = () => {
     setTextValue(text);
   }, [text]);
 
-  const handleSave = () => {
+  /* const handleSave = () => {
     const newTree = tree;
     const folder = tree.find((folder) => folder.name === taskFolder);
     const folderIndex = tree.findIndex((folder) => folder.name === taskFolder);
@@ -57,7 +57,7 @@ const TaskPage = () => {
     }
     setTree(newTree);
     console.log(tree);
-  };
+  }; */
 
   const handleDelete = () => {
     const newTree = tree.filter((folder) => folder.name !== taskFolder);
@@ -98,15 +98,15 @@ const TaskPage = () => {
                     className="text-lock-icon"
                   />
                 </button>
-                <div class="checkbox-wrapper-46">
+                <div className="checkbox-wrapper-46">
                   <input
                     type="checkbox"
                     id="cbx-46"
-                    class="inp-cbx"
+                    className="inp-cbx"
                     checked={isChecked}
                     onChange={handleCheckboxChange}
                   />
-                  <label for="cbx-46" class="cbx">
+                  <label htmlFor="cbx-46" className="cbx">
                     <span>
                       <svg viewBox="0 0 12 10" height="25px" width="25px">
                         <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
