@@ -1,3 +1,5 @@
+const base = "http://localhost:8080/"
+
 export const getAllFoldersAPI = '';
 export const getAllTasksAPI = '';
 export const updateDescAPI = '';
