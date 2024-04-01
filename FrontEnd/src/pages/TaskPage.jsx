@@ -1,16 +1,17 @@
-import save_icon from "../assets/images/save_icon.svg";
-import bin_icon from "../assets/images/bin_icon.svg";
-import share_icon from "../assets/images/share_icon.svg";
-import green_lock_icon from "../assets/images/green_lock_icon.svg";
-import ReactQuill from "react-quill";
-import { useParams } from "react-router-dom";
-import DeleteNote_popup from "../components/DeleteNote_popup";
-import { useState, useEffect } from "react";
-import "./stylesheet/TaskPage.css";
-import { useContextProvider } from "../Contexts/ context";
+import save_icon from '../assets/images/save_icon.svg';
+import bin_icon from '../assets/images/bin_icon.svg';
+import share_icon from '../assets/images/share_icon.svg';
+import green_lock_icon from '../assets/images/green_lock_icon.svg';
+import ReactQuill from 'react-quill';
+import { useParams } from 'react-router-dom';
+import DeleteNote_popup from '../components/DeleteNote_popup';
+import { useState, useEffect } from 'react';
+import './stylesheet/TaskPage.css';
+import { useContextProvider } from '../Contexts/ context';
+import LockedNote_popup from '../components/LockedNote_popup';
 
 const TaskPage = () => {
-  const { taskFolder, taskName, taskId } = useParams();
+  const { taskFolder, taskName } = useParams();
   const {
     isDeletePopUpOpen,
     openDeletePopUp,
@@ -21,13 +22,22 @@ const TaskPage = () => {
     closeLockedNotePopUp,
     openLockedNotePopUp,
   } = useContextProvider();
+  const [isChecked, setIsChecked] = useState(false);
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+    if (event.target.checked) {
+      // Call your function here when the checkbox is checked
+      console.log('Checkbox is checked');
+    }
+  };
+
   console.log(tree);
   const text =
     tree.length > 0
       ? tree
           .find((folder) => folder.folder_name === taskFolder)
           .content.find((task) => task.title === taskName).text
-      : "";
+      : '';
   console.log(text);
   const [textValue, setTextValue] = useState(text);
   useEffect(() => {
@@ -41,7 +51,7 @@ const TaskPage = () => {
     const taskIndex = folder.content.findIndex(
       (task) => task.title === taskName
     );
-    console.log("index", folderIndex, " taskIndex ", taskIndex);
+    console.log('index', folderIndex, ' taskIndex ', taskIndex);
     if (folderIndex !== -1 && taskIndex !== -1) {
       newTree[folderIndex].content[taskIndex].text = textValue;
     }
@@ -88,7 +98,22 @@ const TaskPage = () => {
                     className="text-lock-icon"
                   />
                 </button>
-
+                <div class="checkbox-wrapper-46">
+                  <input
+                    type="checkbox"
+                    id="cbx-46"
+                    class="inp-cbx"
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                  />
+                  <label for="cbx-46" class="cbx">
+                    <span>
+                      <svg viewBox="0 0 12 10" height="25px" width="25px">
+                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                      </svg>
+                    </span>
+                  </label>
+                </div>
                 <button className="icon-btn-home">
                   <img src={share_icon} alt="" className="share-icon" />
                 </button>

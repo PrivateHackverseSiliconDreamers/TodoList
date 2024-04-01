@@ -24,36 +24,15 @@ const SideBar_Secondary = ({folder}) => {
 
   
 
-  const handleClick = (taskFolder, taskName, taskId) => {
-    navigate(`/${taskFolder}/${taskName}/${taskId}`);
+  const handleClick = (taskFolder, taskName) => {
+    navigate(`/${taskFolder}/${taskName}`);
   };
 
-  // const handleClick = (taskId) => {
-  //   navigate(`${taskId}`)
-  // }
-  
-
-  // const openNotePopup = () => {
-  //   setNotePopUpOpen(true);
-  // }
-  // const closeNotePopup = () => {
-  //   setNotePopUpOpen(false);
-  // }
   const toggleFilterButton = () => {
     setFilterBtn(!filterbtn)
   }
 
-  /* const tasksDetails = [
-    {
-      title: "Title 1",
-      date: "26/03/24"
-    },
-    {
-      title: "Title 2",
-      date: "26/05/24"
-    }
 
-  ] */
   const searchPlaceholder = `Search ${selectedFolder.folder_name}`
 
   return (
@@ -90,7 +69,7 @@ const SideBar_Secondary = ({folder}) => {
         {"" || selectedFolder.content.map((item, index) => {
           console.log(item.locked, 'item mapped');
           return item.locked? (
-            <div key={item.id} onClick={() => handleClick(folder.folder_name, item.title, item.id)} className="tasks-title-div">
+            <div key={item.id} onClick={() => handleClick(folder.folder_name, item.title)} className="tasks-title-div">
               <div className="name_and_lock_icon_div">
                 <p className='task-title-text'>{item.title}</p>
                 <img src={black_lock_icon} alt="" className="lock-note-icon" />
