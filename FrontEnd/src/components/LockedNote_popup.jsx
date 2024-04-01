@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./stylesheet/LockedNotes_popup.css";
 import close_icon from "../assets/images/black_cross_icon.svg";
 import { useContextProvider } from "../Contexts/ context";
-import { createPassordAPI } from "../APIs/api";
+import { createPasswordAPI } from "../APIs/api";
 import axios from "axios";
 
 const LockedNote_popup = ({ onClose, taskName }) => {
@@ -10,7 +10,7 @@ const LockedNote_popup = ({ onClose, taskName }) => {
   const { setReload } = useContextProvider();
   const handleCreatePassword = async () => {
     try {
-      const response = await axios.post(createPassordAPI, {
+      const response = await axios.post(createPasswordAPI, {
         title: taskName,
         password: taskPassword,
       });
