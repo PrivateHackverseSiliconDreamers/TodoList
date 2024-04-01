@@ -124,9 +124,9 @@ const SideBar_Main = ({ children }) => {
     },
   ];
   //const data = [];
-  useEffect(() => {
+  /* useEffect(() => {
     setTree(data);
-  }, []);
+  }, []); */
   console.log(tree);
   const [keyClicked, setKeyClicked] = useState(null);
   const filteredItem = tree.filter((item) => item.id === keyClicked);
@@ -172,9 +172,7 @@ const SideBar_Main = ({ children }) => {
       <div>
         {isFolderPopUpOpen && <NewFolder_popup onClose={closeFolderPopup} />}
       </div>
-
-      <div>{notePopUpOpen && <NewNote_popup onClose={closeNotePopup} />}</div>
-
+      
       <div style={{ paddingLeft: "" }}>
         {console.log(filteredItem)}
         <SideBar_Secondary folder={filteredItem[0] || tree[0]} />

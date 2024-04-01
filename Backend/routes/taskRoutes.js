@@ -3,18 +3,30 @@ const router=express.Router()
 
 
 
-const { createtask, deletetask, updatetask, gettask, getalltask, getallstackfolder, completetask, getallstackcompleted }=require ("../controllers/taskController");
-const { getAllTaskFolder } = require("../service/tasksServices");
+const { createtask, deletetask, updatetask, gettask, getalltask, getallstackfolder, completetask, getallstackcompleted, updatetaskdesc, noncompletetask, updatetaskpass }=require ("../controllers/taskController");
 
 
+//post methods
 router.route("/create").post(createtask)
-router.route("/delete").post(deletetask)
-router.route("/update").post(updatetask)
-router.route("get").post(gettask)
-router.route("/getAll").post(getalltask)
-router.route("/getAllfolder").post(getallstackfolder)
-router.route("/completeTask").post(completetask)
-router.route("/getAllTaskComplete").post(getallstackcompleted)
+
+//delete methods
+router.route("/delete").delete(deletetask)
+
+// modify methods 
+
+router.route("/update").put(updatetask)
+router.route("/completedTask").put(completetask)
+router.route("/nonCompletedTask").put(noncompletetask)
+router.route("/update/description").put(updatetaskdesc)
+router.route ("/update/password").put(updatetaskpass)
+
+
+//get methods
+
+router.route("/get").get(gettask)
+router.route("/getAll").get(getalltask)
+router.route("/getAllfolder").get(getallstackfolder)
+router.route("/getAllTaskCompleted").get(getallstackcompleted)
 
 
 router.use ("/",(req,res,next)=>{

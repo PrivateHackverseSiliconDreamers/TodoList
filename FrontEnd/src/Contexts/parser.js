@@ -52,6 +52,7 @@ const testTasks = [
 ];
 
 export const parseIt = (folderList, TaskList) => {
+  console.log(folderList);
   const folders = [
     { folder_name: "All Tasks", content: [] },
     { folder_name: "Completed", content: [] },
@@ -78,8 +79,8 @@ export const parseIt = (folderList, TaskList) => {
   return folders;
 };
 
-const folders = parseIt(testFolders, testTasks);
+/* const folders = parseIt(testFolders, testTasks);
 console.log(folders);
 for (let i =0;i<folders.length;++i){
     console.log(`${folders[i].folder_name} `,folders[i])
-}
+} */

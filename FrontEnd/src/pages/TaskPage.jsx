@@ -10,6 +10,8 @@ import "./stylesheet/TaskPage.css";
 import { useContextProvider } from "../Contexts/ context";
 import LockedNote_popup from "../components/LockedNote_popup";
 import LockedPage from "./LockedPage";
+import axios from "axios";
+import { updateCompletedAPI, updateSaveNoteAPI } from "../APIs/api";
 
 const TaskPage = () => {
   const { taskFolder, taskName } = useParams();
@@ -22,16 +24,42 @@ const TaskPage = () => {
     isLockNotePopUpOpen,
     closeLockedNotePopUp,
     openLockedNotePopUp,
+    setReload,
   } = useContextProvider();
   const [isChecked, setIsChecked] = useState(false);
-  const [isUnlocked,setIsUnLocked] = useState(false);
-  const handleCheckboxChange = (event) => {
+  const [isUnlocked, setIsUnLocked] = useState(false);
+
+  const handleCheckboxChange = async (event) => {
     setIsChecked(event.target.checked);
     if (event.target.checked) {
       // Call your function here when the checkbox is checked
-      console.log("Checkbox is checked");
+      try {
+        const response = await axios.post(updateCompletedAPI, {
+          title: taskName,
+        });
+        if (response.status == 200) {
+          setReload(true);
+        }
+        console.log("Checkbox is checked");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
+  const handleSaveNote = async () => {
+    try {
+      const response = await axios.post(updateSaveNoteAPI, {
+        title: taskName,
+        description : textValue
+      });
+      if (response.status == 200) {
+        setReload(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
 
   console.log(tree);
   const text =
@@ -46,22 +74,6 @@ const TaskPage = () => {
     setTextValue(text);
   }, [text]);
 
-  /* const handleSave = () => {
-    const newTree = tree;
-    const folder = tree.find((folder) => folder.name === taskFolder);
-    const folderIndex = tree.findIndex((folder) => folder.name === taskFolder);
-    const taskIndex = folder.content.findIndex(
-      (task) => task.title === taskName
-      );
-      console.log('index', folderIndex, ' taskIndex ', taskIndex);
-      if (folderIndex !== -1 && taskIndex !== -1) {
-        newTree[folderIndex].content[taskIndex].text = textValue;
-      }
-      setTree(newTree);
-      console.log(tree);
-    }; */
-
-    /* Retrouver une propriété de la tache en cours (locked en l'ocurrence)*/
   const folder = tree.find((folder) => folder.folder_name === taskFolder);
   const folderIndex = tree.findIndex(
     (folder) => folder.folder_name === taskFolder
@@ -71,24 +83,22 @@ const TaskPage = () => {
   const passWord = tree[folderIndex].content[taskIndex].password;
   console.log(isLock);
 
-  const handleDelete = () => {
-    const newTree = tree.filter((folder) => folder.name !== taskFolder);
-    setTree(newTree);
-    console.log(tree);
-  };
-
   return (
     <>
-      {isLock && isUnlocked===false ? (
-        <LockedPage setIsUnLocked={setIsUnLocked} password = {passWord}/>
+      {isLock && isUnlocked === false ? (
+        <LockedPage setIsUnLocked={setIsUnLocked} password={passWord} />
       ) : (
         <>
           <div>
             {isDeletePopUpOpen && (
-              <DeleteNote_popup onClose={closeDeletePopUp} />
+              <DeleteNote_popup
+                onClose={closeDeletePopUp}
+                taskName={taskName}
+                folderName={taskFolder}
+              />
             )}
             {isLockNotePopUpOpen && (
-              <LockedNote_popup onClose={closeLockedNotePopUp} />
+              <LockedNote_popup onClose={closeLockedNotePopUp} taskName={taskName}/>
             )}
           </div>
 
@@ -106,7 +116,7 @@ const TaskPage = () => {
                   </div>
 
                   <div className="group-icons-div">
-                    <button className="icon-btn-home">
+                    <button onClick={handleSaveNote} className="icon-btn-home">
                       <img src={save_icon} alt="" className="save-icon" />
                     </button>
                     <button

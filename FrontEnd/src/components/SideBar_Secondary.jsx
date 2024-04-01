@@ -11,12 +11,12 @@ import black_lock_icon from '../assets/images/black_lock_icon.svg';
 
 
 const SideBar_Secondary = ({folder}) => {
-  const selectedFolder = folder || { name: "All Tasks", content: [], id: 1 };
+  const selectedFolder = folder || { folder_name: "All Tasks", content: [], id: 1 };
   // console.log(folder.name, 'folder_clicked');
   console.log(selectedFolder, 'selected_folderInSec_sidebar');
-  console.log(selectedFolder.name, 'foldername___');
+  console.log(selectedFolder.folder_name, 'foldername___');
   
-  const {openNotePopup} = useContextProvider();
+  const {openNotePopup,notePopUpOpen,closeNotePopup} = useContextProvider();
   const [filterbtn, setFilterBtn] = useState(false);
   const [searchInput, setSearchInput] = useState("");
 
@@ -77,7 +77,7 @@ const SideBar_Secondary = ({folder}) => {
               <p className='task-date'>{item.date}</p>
             </div>
           ) : (
-            <div key={item.id} onClick={() => handleClick(folder.folder_name, item.title, item.id)} className="tasks-title-div">
+            <div key={item.id} onClick={() => handleClick(folder.folder_name, item.title)} className="tasks-title-div">
               <p className='task-title-text'>{item.title}</p>
               <p className='task-date'>{item.date}</p>
             </div>
@@ -86,6 +86,7 @@ const SideBar_Secondary = ({folder}) => {
           })}
         </div>
       </div>
+      <div>{notePopUpOpen && <NewNote_popup onClose={closeNotePopup} selectedFolder={selectedFolder.folder_name}/>}</div>
 
       
      </div>

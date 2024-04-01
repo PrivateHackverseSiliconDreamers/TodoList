@@ -2,7 +2,7 @@
  const sqlite3 = require("sqlite3").verbose();
  const db = new sqlite3.Database("database.db");
  
- // Crée une nouvelle entrée dans la table 'catégorie_task'
+ // Crée une nouvelle entrée dans la table 'folder'
   function createFolderTask(folder_name) {
     db.run(
       `INSERT INTO Folder (folder_name) VALUES (?)`,
@@ -19,23 +19,26 @@
 
 
   // Récupère une entrée de la table 'catégorie_task' en fonction de l'ID
-function getFolderByName(folder_name) {
-    db.get(
-      `SELECT * FROM Folder WHERE folder_name = ?`,
-      [folder_name],
-      function (err, row) {
-        if (err) {
-          console.error(err.message);
-        } else {
-          if (row) {
-            console.log(`folder trouvée: ID ${row.id}, Nom: ${row.category}`);
-          } else {
-            console.log(`Aucun folder trouvée avec l'ID "${id}".`);
-          }
-        }
-      }
-    );
-  }
+  function getFolderByName(folder_name) {
+    return new Promise((resolve, reject) => {
+        db.get(`SELECT * FROM Folder WHERE folder_name = ?`, [folder_name], function (err, row) {
+            if (err) {
+                reject(err.message);
+            } else {
+                if (row) {
+                    const folder = {
+                        id: row.id,
+                        folder_name: row.folder_name
+                    };
+                    resolve(folder);
+                } else {
+                    reject(`Aucun folder trouvé avec le nom "${folder_name}".`);
+                }
+            }
+        });
+    });
+}
+
 
 
   

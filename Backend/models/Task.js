@@ -12,6 +12,7 @@ const UserSchema = {
     completed: { type: "BOOLEAN" }, 
     locked: { type: "BOOLEAN" },
     folder_name: { type: "TEXT" },
+    date:{type:"DATE"},
     password : {type: "TEXT"}
     
   }

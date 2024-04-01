@@ -9,7 +9,8 @@ const createTaskTable = () => {
       title TEXT,
       description TEXT,
       completed BOOLEAN,
-      folder_name TEXT 
+      locked  BOOLEAN,
+      folder_name TEXT,
       date DATE,
       password TEXT
     )

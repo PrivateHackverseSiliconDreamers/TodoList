@@ -15,7 +15,7 @@ exports.createfolder=async (req, res, next)=> {
 
     try {
         createFolderTask(folder_name)
-        res.status(201).send({message:"folder created"})
+        res.status(200).send({message:"folder created"})
     }catch (error){
         next(error)
     }
@@ -31,7 +31,7 @@ exports.deletefolder=async (req, res, next)=> {
 
     try {
         deleteFolder(folder_name)
-        res.status(201).send({message:"task deleted"})
+        res.status(200).send({message:"task deleted"})
     }catch (error){
         next(error)
     }
@@ -49,7 +49,7 @@ exports.updatefolder=async (req, res, next)=> {
 
     try {
         updateFolderByName(folder_name)
-        res.status(201).send({message:"folder update"})
+        res.status(200).send({message:"folder update"})
     }catch (error){
         next(error)
     }
@@ -64,7 +64,11 @@ exports.getfolder=async (req, res, next)=> {
 
     try {
         getFolderByName(folder_name)
-        res.status(201).send({message:"read  folder "})
+        .then((folder)=>{
+            res.status(200).send({folder})
+            console.log(folder)
+        })
+      
     }catch (error){
         next(error)
     }
@@ -82,7 +86,7 @@ exports.getallfolder=async (req, res,next) => {
         getAllFolder()
         .then(folders => {
         JSON.stringify(folders);
-        res.status(201).send({folders})
+        res.status(200).send({folders})
         console.log(folders)
      })
     }catch (error){
