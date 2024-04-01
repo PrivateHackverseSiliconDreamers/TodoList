@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import TaskPage from "./pages/TaskPage.jsx";
 import ContextProvider from "./Contexts/ context.jsx";
+import LockedPage from "./pages/LockedPage.jsx";
 
 
 const router = createBrowserRouter([
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
       {
         path: ":taskFolder/:taskName/",
         element : <TaskPage />,
-      }
+      },
     ]
 
   },
