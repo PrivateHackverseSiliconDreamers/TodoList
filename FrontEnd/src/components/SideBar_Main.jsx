@@ -22,6 +22,16 @@ const SideBar_Main = ({ children }) => {
     isDeletePopUpOpenFolder,
     setIsDeletePopUpOpenFolder,
   } = useContextProvider();
+  const [isHovered, setIsHovered] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState(null);
+
+  const handleMouseEnter = (index) => {
+    setHoveredItem(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredItem(null);
+  };
   const [keyClicked, setKeyClicked] = useState(null);
   const filteredItem = tree.filter((item) => item.id === keyClicked);
 
@@ -41,17 +51,28 @@ const SideBar_Main = ({ children }) => {
                 key={index}
                 onClick={() => setKeyClicked(item.id)}
                 className="main-menuItems"
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={handleMouseLeave}
               >
-                <div className="folder-div">
-                  <img src={folder_icon} className="folder_icon" alt="" />
+                <div className="folder-div-and-bin-icon">
+                  <div className="folder-div-and-folder-icon">
+                    <div className="folder-div">
+                      <img src={folder_icon} className="folder_icon" alt="" />
+                    </div>
+
+                    <NavLink className="mainSB-navlink">
+                      {item.folder_name}
+                    </NavLink>
+                  </div>
+                  {hoveredItem === index && (
+                    <button
+                      onClick={openDeleteFolderPopUp}
+                      className="bin-icon-folder"
+                    >
+                      <img src={bin_icon} alt="" />
+                    </button>
+                  )}
                 </div>
-                <NavLink className="mainSB-navlink">{item.folder_name}</NavLink>
-                <button
-                  onClick={openDeleteFolderPopUp}
-                  className="bin-icon-folder"
-                >
-                  <img src={bin_icon} alt="" />
-                </button>
               </li>
             ))}
           </ul>

@@ -59,7 +59,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: .5rem 2rem;
+    padding: .5rem 1rem;
      
 }
 .main-menuItems:hover{
@@ -118,7 +118,22 @@
     outline: none;
     border: none;
 }
-
+  
 .bin-icon-folder img{
     width: 25px;
+ }
+ .bin-icon-folder{
+    display: block;
+ }
+ .folder-div-and-bin-icon{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+ }
+ .folder-div-and-folder-icon{
+    display: flex;
+    align-items: center;
+    gap: 8px;
  }
