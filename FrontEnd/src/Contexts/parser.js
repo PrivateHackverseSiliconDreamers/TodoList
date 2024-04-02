@@ -52,7 +52,8 @@ const testTasks = [
 ];
 
 export const parseIt = (folderList, TaskList) => {
-  console.log(folderList);
+  console.log("Le parser .........");
+  console.log(typeof folderList, " heyyy      +", folderList);
   const folders = [
     { folder_name: "All Tasks", content: [] },
     { folder_name: "Completed", content: [] },
