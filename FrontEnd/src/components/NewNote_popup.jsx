@@ -11,7 +11,6 @@ const NewNote_popup = ({ onClose, selectedFolder }) => {
   const { setReload } = useContextProvider();
   const [noteName, setNoteName] = useState("");
   const handleCreateNewNote = async () => {
-    console.log('selected Folder', selectedFolder)
    
     try {
       const response = await axios.post(createNoteAPI, {

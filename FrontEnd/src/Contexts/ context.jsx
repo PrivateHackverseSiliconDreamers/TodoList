@@ -10,10 +10,11 @@ export default function ContextProvider({ children }) {
   const [isFolderPopUpOpen, setIsFolderPopupOpen] = useState(false);
   const [notePopUpOpen, setNotePopUpOpen] = useState(false);
   const [isDeletePopUpOpen, setIsDeletePopUpOpen] = useState(false);
+  const [isDeletePopUpOpenFolder, setIsDeletePopUpOpenFolder] = useState(false);
   const [isLockNotePopUpOpen, setIsLockNotePopUpOpen] = useState(false);
   const [tree, setTree] = useState([]);
   const [reload, setReload] = useState(false);
-  console.log(reload, 'The value of reload everytime is');
+
 
   const getAllFolders = async () => {
     try {
@@ -63,6 +64,12 @@ export default function ContextProvider({ children }) {
     setIsLockNotePopUpOpen(false);
   };
 
+  const openDeleteFolderPopUp = () => {
+    setIsDeletePopUpOpenFolder(true);
+  }
+  const closeDeleteFolderPopUp = () => {
+    setIsDeletePopUpOpenFolder(false);
+  }
   const openDeletePopUp = () => {
     setIsDeletePopUpOpen(true);
   };
@@ -103,6 +110,10 @@ export default function ContextProvider({ children }) {
     setTree,
     reload,
     setReload,
+    openDeleteFolderPopUp,
+    closeDeleteFolderPopUp,
+    isDeletePopUpOpenFolder,
+    setIsDeletePopUpOpenFolder
   };
 
   return <context.Provider value={contextValue}>{children}</context.Provider>;

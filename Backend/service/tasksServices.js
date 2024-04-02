@@ -169,8 +169,8 @@ function updateTaskDescription(title, description) {
 
 function updateTaskPassword (title,password) {
   db.run(
-    `UPDATE task SET password = ? WHERE title = ?`,
-    [password, title],
+    `UPDATE task SET password = ?,locked= ? WHERE title = ?`,
+    [password,true, title],
     function (err) {
       if (err) {
         console.error(err.message);

@@ -4,18 +4,22 @@ import close_icon from "../assets/images/black_cross_icon.svg";
 import { useContextProvider } from "../Contexts/ context";
 import { createPasswordAPI } from "../APIs/api";
 import axios from "axios";
+import {useNavigate} from 'react-router-dom'
 
 const LockedNote_popup = ({ onClose, taskName }) => {
+  const navigate = useNavigate();
   const [taskPassword, setTaskPassword] = useState("");
   const { setReload } = useContextProvider();
+
   const handleCreatePassword = async () => {
     try {
-      const response = await axios.update(createPasswordAPI, {
+      const response = await axios.put(createPasswordAPI, {
         title: taskName,
         password: taskPassword
       });
       if (response.status == 200) {
         setReload(true);
+        navigate('/');
       }
     } catch (error) {
       console.log(error);

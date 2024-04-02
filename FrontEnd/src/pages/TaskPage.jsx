@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
-import save_icon from "../assets/images/save_icon.svg";
-import bin_icon from "../assets/images/bin_icon.svg";
-import share_icon from "../assets/images/share_icon.svg";
-import green_lock_icon from "../assets/images/green_lock_icon.svg";
-import ReactQuill from "react-quill";
-import { useParams } from "react-router-dom";
-import DeleteNote_popup from "../components/DeleteNote_popup";
-import "./stylesheet/TaskPage.css";
-import { useContextProvider } from "../Contexts/ context";
-import LockedNote_popup from "../components/LockedNote_popup";
-import LockedPage from "./LockedPage";
-import axios from "axios";
-import { updateCompletedAPI, updateSaveNoteAPI } from "../APIs/api";
-import {useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import save_icon from '../assets/images/save_icon.svg';
+import bin_icon from '../assets/images/bin_icon.svg';
+import share_icon from '../assets/images/share_icon.svg';
+import green_lock_icon from '../assets/images/green_lock_icon.svg';
+import ReactQuill from 'react-quill';
+import { useParams } from 'react-router-dom';
+import DeleteNote_popup from '../components/DeleteNote_popup';
+import './stylesheet/TaskPage.css';
+import { useContextProvider } from '../Contexts/ context';
+import LockedNote_popup from '../components/LockedNote_popup';
+import LockedPage from './LockedPage';
+import axios from 'axios';
+import { updateCompletedAPI, updateSaveNoteAPI } from '../APIs/api';
+import { useNavigate } from 'react-router-dom';
+import DeleteFolder_popup from '../components/DeleteFolder_popup';
 
 const TaskPage = () => {
   const { taskFolder, taskName } = useParams();
@@ -26,18 +27,18 @@ const TaskPage = () => {
     closeLockedNotePopUp,
     openLockedNotePopUp,
     setReload,
+   
   } = useContextProvider();
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const [isUnlocked, setIsUnLocked] = useState(false);
 
   const handleCheckboxChange = async (event) => {
     setIsChecked(event.target.checked);
     if (event.target.checked) {
-      
       try {
         const response = await axios.put(updateCompletedAPI, {
-          title: taskName
+          title: taskName,
         });
         if (response.status == 200) {
           setReload(true);
@@ -53,7 +54,7 @@ const TaskPage = () => {
     try {
       const response = await axios.put(updateSaveNoteAPI, {
         title: taskName,
-        description : textValue
+        description: textValue,
       });
       if (response.status == 200) {
         setReload(true);
@@ -62,13 +63,13 @@ const TaskPage = () => {
       console.log(error);
     }
   };
-  
+
   const text =
     tree.length > 0
       ? tree
           .find((folder) => folder.folder_name === taskFolder)
           .content.find((task) => task.title === taskName).text
-      : "";
+      : '';
   const [textValue, setTextValue] = useState(text);
   useEffect(() => {
     setTextValue(text);
@@ -84,7 +85,7 @@ const TaskPage = () => {
 
   return (
     <>
-      {isLock===1 && isUnlocked === false ? (
+      {isLock === 1 && isUnlocked === false ? (
         <LockedPage setIsUnLocked={setIsUnLocked} password={passWord} />
       ) : (
         <>
@@ -97,9 +98,13 @@ const TaskPage = () => {
               />
             )}
             {isLockNotePopUpOpen && (
-              <LockedNote_popup onClose={closeLockedNotePopUp} taskName={taskName}/>
+              <LockedNote_popup
+                onClose={closeLockedNotePopUp}
+                taskName={taskName}
+              />
             )}
           </div>
+      
 
           <div className="task-page-container">
             <div className="text-area-container">

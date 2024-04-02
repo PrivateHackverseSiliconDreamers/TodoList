@@ -36,7 +36,7 @@ const SideBar_Secondary = ({ folder }) => {
   };
 
   const searchPlaceholder = `Search ${selectedFolder.folder_name}`;
-  console.log(selectedFolder.id, 'id of the  selected folder');
+
 
   return (
     <div className="sideBar-sec-container">

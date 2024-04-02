@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
-import "./stylesheet/SideBar_Main.css";
-import logo from "../assets/images/logo.svg";
-import { NavLink } from "react-router-dom";
-import folder_icon from "../assets/images/folder_icon.svg";
-import add_icon_green from "../assets/images/green_add_icon.svg";
-import SideBar_Secondary from "./SideBar_Secondary";
-import NewFolder_popup from "./NewFolder_popup";
-import NewNote_popup from "./NewNote_popup";
-import { useContextProvider } from "../Contexts/ context";
+import React, { useEffect, useState } from 'react';
+import './stylesheet/SideBar_Main.css';
+import logo from '../assets/images/logo.svg';
+import { NavLink } from 'react-router-dom';
+import folder_icon from '../assets/images/folder_icon.svg';
+import add_icon_green from '../assets/images/green_add_icon.svg';
+import bin_icon from '../assets/images/bin_icon.svg';
+import SideBar_Secondary from './SideBar_Secondary';
+import NewFolder_popup from './NewFolder_popup';
+import NewNote_popup from './NewNote_popup';
+import { useContextProvider } from '../Contexts/ context';
+import DeleteFolder_popup from './DeleteFolder_popup';
 
 const SideBar_Main = ({ children }) => {
   const {
     isFolderPopUpOpen,
-    notePopUpOpen,
     openFolderPopup,
     closeFolderPopup,
-    openNotePopup,
-    closeNotePopup,
     tree,
-    setTree,
+    openDeleteFolderPopUp,
+    closeDeleteFolderPopUp,
+    isDeletePopUpOpenFolder,
+    setIsDeletePopUpOpenFolder,
   } = useContextProvider();
-  console.log(tree, "logged tree");
   const [keyClicked, setKeyClicked] = useState(null);
   const filteredItem = tree.filter((item) => item.id === keyClicked);
-  console.log(filteredItem, "filteredItem");
 
   return (
     <div className="Sb-main-container">
@@ -36,7 +36,7 @@ const SideBar_Main = ({ children }) => {
         </div>
         <div className="mainSB-navigation">
           <ul className="mainSideBar-ul">
-            {tree.map((item,index) => (
+            {tree.map((item, index) => (
               <li
                 key={index}
                 onClick={() => setKeyClicked(item.id)}
@@ -46,10 +46,17 @@ const SideBar_Main = ({ children }) => {
                   <img src={folder_icon} className="folder_icon" alt="" />
                 </div>
                 <NavLink className="mainSB-navlink">{item.folder_name}</NavLink>
+                <button
+                  onClick={openDeleteFolderPopUp}
+                  className="bin-icon-folder"
+                >
+                  <img src={bin_icon} alt="" />
+                </button>
               </li>
             ))}
           </ul>
         </div>
+
         <NavLink onClick={openFolderPopup} className="new-folder">
           <div className="add-icon-green">
             <button>
@@ -65,8 +72,13 @@ const SideBar_Main = ({ children }) => {
       <div>
         {isFolderPopUpOpen && <NewFolder_popup onClose={closeFolderPopup} />}
       </div>
-      
-      <div style={{ paddingLeft: "" }}>
+      <div>
+        {isDeletePopUpOpenFolder && (
+          <DeleteFolder_popup onClose={closeDeleteFolderPopUp} />
+        )}
+      </div>
+
+      <div style={{ paddingLeft: '' }}>
         <SideBar_Secondary folder={filteredItem[0] || tree[0]} />
       </div>
     </div>

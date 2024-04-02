@@ -4,12 +4,10 @@
 }
 .Sb-main-container{
     display: flex; 
-   
     margin: 0;
     
-
-
 }
+
 .main-sidebar {
     background-color: var(--silicon-black);
     position: fixed;
@@ -121,3 +119,6 @@
     border: none;
 }
 
+.bin-icon-folder img{
+    width: 25px;
+ }

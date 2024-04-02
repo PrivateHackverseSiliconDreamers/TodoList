@@ -6,7 +6,7 @@ export const parseIt = (folderList, TaskList) => {
     { id:101, folder_name: "Completed", content: [] },
     ...folderList,
   ];
-  console.log(folders,  'this is the folder listt')
+
   folders[0].content = TaskList;
   for (let j = 0; j < TaskList.length; ++j) {
     if (TaskList[j].completed === 1) {
@@ -15,10 +15,10 @@ export const parseIt = (folderList, TaskList) => {
   }
   for (let i = 2; i < folders.length; ++i) {
     const folderName = folders[i].folder_name;
-    console.log(folderName, 'this is the folder')
+
     folders[i].content = [];
     for (let j = 0; j < TaskList.length; j++) {
-      console.log(TaskList[j].folder_name===folderName, 'i need to know')
+
       if (
         folderName === TaskList[j].folder_name &&
         TaskList[j].completed === 0
