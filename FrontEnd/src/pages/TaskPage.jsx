@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import save_icon from '../assets/images/save_icon.svg';
-import bin_icon from '../assets/images/bin_icon.svg';
-import share_icon from '../assets/images/share_icon.svg';
-import green_lock_icon from '../assets/images/green_lock_icon.svg';
-import ReactQuill from 'react-quill';
-import { useParams } from 'react-router-dom';
-import DeleteNote_popup from '../components/DeleteNote_popup';
-import './stylesheet/TaskPage.css';
-import { useContextProvider } from '../Contexts/ context';
-import LockedNote_popup from '../components/LockedNote_popup';
-import LockedPage from './LockedPage';
-import axios from 'axios';
-import { updateCompletedAPI, updateSaveNoteAPI } from '../APIs/api';
-import { useNavigate } from 'react-router-dom';
-import DeleteFolder_popup from '../components/DeleteFolder_popup';
+import React, { useState, useEffect } from "react";
+import save_icon from "../assets/images/save_icon.svg";
+import bin_icon from "../assets/images/bin_icon.svg";
+import share_icon from "../assets/images/share_icon.svg";
+import green_lock_icon from "../assets/images/green_lock_icon.svg";
+import ReactQuill from "react-quill";
+import { useParams } from "react-router-dom";
+import DeleteNote_popup from "../components/DeleteNote_popup";
+import "./stylesheet/TaskPage.css";
+import { useContextProvider } from "../Contexts/ context";
+import LockedNote_popup from "../components/LockedNote_popup";
+import LockedPage from "./LockedPage";
+import axios from "axios";
+import { updateCompletedAPI, updateSaveNoteAPI } from "../APIs/api";
+import { useNavigate } from "react-router-dom";
+import DeleteFolder_popup from "../components/DeleteFolder_popup";
 
 const TaskPage = () => {
   const { taskFolder, taskName } = useParams();
@@ -27,11 +27,11 @@ const TaskPage = () => {
     closeLockedNotePopUp,
     openLockedNotePopUp,
     setReload,
-   
   } = useContextProvider();
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const [isUnlocked, setIsUnLocked] = useState(false);
+  console.log(tree);
 
   const handleCheckboxChange = async (event) => {
     setIsChecked(event.target.checked);
@@ -42,8 +42,8 @@ const TaskPage = () => {
         });
         if (response.status == 200) {
           setReload(true);
-          navigate('/');
-          alert('Task moved to completed folder');
+          navigate("/");
+          alert("Task moved to completed folder");
         }
       } catch (error) {
         console.log(error);
@@ -68,13 +68,13 @@ const TaskPage = () => {
     tree.length > 0
       ? tree
           .find((folder) => folder.folder_name === taskFolder)
-          .content.find((task) => task.title === taskName).text
-      : '';
+          .content.find((task) => task.title === taskName).description
+      : "";
   const [textValue, setTextValue] = useState(text);
   useEffect(() => {
     setTextValue(text);
   }, [text]);
-
+  console.log(tree);
   const folder = tree.find((folder) => folder.folder_name === taskFolder);
   const folderIndex = tree.findIndex(
     (folder) => folder.folder_name === taskFolder
@@ -82,6 +82,10 @@ const TaskPage = () => {
   const taskIndex = folder.content.findIndex((task) => task.title === taskName);
   const isLock = tree[folderIndex].content[taskIndex].locked;
   const passWord = tree[folderIndex].content[taskIndex].password;
+
+  useEffect(() => {
+    setIsUnLocked(false);
+  }, [taskName]);
 
   return (
     <>
@@ -104,7 +108,6 @@ const TaskPage = () => {
               />
             )}
           </div>
-      
 
           <div className="task-page-container">
             <div className="text-area-container">

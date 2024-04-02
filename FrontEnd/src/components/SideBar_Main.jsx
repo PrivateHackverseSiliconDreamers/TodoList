@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import './stylesheet/SideBar_Main.css';
-import logo from '../assets/images/logo.svg';
-import { NavLink } from 'react-router-dom';
-import folder_icon from '../assets/images/folder_icon.svg';
-import add_icon_green from '../assets/images/green_add_icon.svg';
-import bin_icon from '../assets/images/bin_icon.svg';
-import SideBar_Secondary from './SideBar_Secondary';
-import NewFolder_popup from './NewFolder_popup';
-import NewNote_popup from './NewNote_popup';
-import { useContextProvider } from '../Contexts/ context';
-import DeleteFolder_popup from './DeleteFolder_popup';
+import React, { useEffect, useState } from "react";
+import "./stylesheet/SideBar_Main.css";
+import logo from "../assets/images/logo.svg";
+import { NavLink } from "react-router-dom";
+import folder_icon from "../assets/images/folder_icon.svg";
+import add_icon_green from "../assets/images/green_add_icon.svg";
+import bin_icon from "../assets/images/bin_icon.svg";
+import SideBar_Secondary from "./SideBar_Secondary";
+import NewFolder_popup from "./NewFolder_popup";
+import NewNote_popup from "./NewNote_popup";
+import { useContextProvider } from "../Contexts/ context";
+import DeleteFolder_popup from "./DeleteFolder_popup";
 
 const SideBar_Main = ({ children }) => {
   const {
@@ -24,6 +24,7 @@ const SideBar_Main = ({ children }) => {
   } = useContextProvider();
   const [isHovered, setIsHovered] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
+  const [folderName, setFolderName] = useState("");
 
   const handleMouseEnter = (index) => {
     setHoveredItem(index);
@@ -64,14 +65,20 @@ const SideBar_Main = ({ children }) => {
                       {item.folder_name}
                     </NavLink>
                   </div>
-                  {hoveredItem === index && (
-                    <button
-                      onClick={openDeleteFolderPopUp}
-                      className="bin-icon-folder"
-                    >
-                      <img src={bin_icon} alt="" />
-                    </button>
-                  )}
+                  {hoveredItem === index &&
+                    (index == 0 || index == 1 ? (
+                      " "
+                    ) : (
+                      <button
+                        onClick={() => {
+                          openDeleteFolderPopUp();
+                          setFolderName(item.folder_name);
+                        }}
+                        className="bin-icon-folder"
+                      >
+                        <img src={bin_icon} alt="" />
+                      </button>
+                    ))}
                 </div>
               </li>
             ))}
@@ -95,11 +102,14 @@ const SideBar_Main = ({ children }) => {
       </div>
       <div>
         {isDeletePopUpOpenFolder && (
-          <DeleteFolder_popup onClose={closeDeleteFolderPopUp} />
+          <DeleteFolder_popup
+            onClose={closeDeleteFolderPopUp}
+            folderName={folderName}
+          />
         )}
       </div>
 
-      <div style={{ paddingLeft: '' }}>
+      <div style={{ paddingLeft: "" }}>
         <SideBar_Secondary folder={filteredItem[0] || tree[0]} />
       </div>
     </div>

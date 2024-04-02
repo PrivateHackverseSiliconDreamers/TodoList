@@ -48,13 +48,16 @@ export default function ContextProvider({ children }) {
         const tasks = await getAlltasks();
         const data = parseIt(folders, tasks);
         setTree(data);
+        console.log("Reload the page");
+        console.log(data);
+        console.log("tree",tree);
         setReload(false);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-
+    
   }, [reload]);
 
   const openLockedNotePopUp = () => {

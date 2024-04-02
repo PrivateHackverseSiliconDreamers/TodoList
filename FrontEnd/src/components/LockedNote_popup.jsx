@@ -31,7 +31,7 @@ const LockedNote_popup = ({ onClose, taskName }) => {
         <div className="lockpopup-content">
           <p>Enter the password</p>
           <input
-            type="text"
+            type="password"
             name=""
             value={taskPassword}
             onChange={(e) => setTaskPassword(e.target.value)}

@@ -7,15 +7,14 @@ import { deleteFolderAPI } from '../APIs/api';
 import { useContextProvider } from "../Contexts/ context";
 
 
-const DeleteFolder_popup = ({onClose}) => {
+const DeleteFolder_popup = ({onClose, folderName}) => {
     const navigate = useNavigate();
     const { setReload } = useContextProvider();
-
     const handleDeleteFolder = async () => {
        
         try {
           const response = await axios.delete(deleteFolderAPI, {
-            data: { name: taskFolder } 
+            data: { name: folderName } 
           });
           if (response.status == 200) {
             setReload(true);
