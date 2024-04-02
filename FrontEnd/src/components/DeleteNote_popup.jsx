@@ -5,16 +5,24 @@ import { deleteNoteAPI } from "../APIs/api";
 import axios from "axios";
 import { useContextProvider } from "../Contexts/ context";
 import { getCurrentDate } from "../Contexts/date";
+import { useNavigate } from 'react-router-dom';
+
 
 const DeleteNote_popup = ({ onClose, taskName, folderName }) => {
+  const navigate = useNavigate();
   const { setReload } = useContextProvider();
   const handleDeleteNewNote = async () => {
+    console.log(taskName, 'this is the deleted name');
     try {
-      const response = await axios.post(deleteNoteAPI, {
-        title: taskName,
+      const response = await axios.delete(deleteNoteAPI, {
+        data: { title: taskName } 
       });
       if (response.status == 200) {
         setReload(true);
+        navigate('/');
+        
+      } else {
+        alert('An Error Occured. Try again later')
       }
     } catch (error) {
       console.log(error);

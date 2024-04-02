@@ -13,16 +13,14 @@ export default function ContextProvider({ children }) {
   const [isLockNotePopUpOpen, setIsLockNotePopUpOpen] = useState(false);
   const [tree, setTree] = useState([]);
   const [reload, setReload] = useState(false);
+  console.log(reload, 'The value of reload everytime is');
 
   const getAllFolders = async () => {
-    console.log("hello axios");
     try {
       const response = await axios.get(getAllFoldersAPI);
       let folders = [];
-      console.log("Response axios", response);
       if (response.status == 200) {
         folders = response.data.folders;
-        console.log("Folders: ", folders, "   ", typeof folders);
         return folders;
       }
     } catch (error) {
@@ -35,7 +33,7 @@ export default function ContextProvider({ children }) {
       let tasks = [];
       if (response.status == 200) {
         tasks = response.data.taks;
-        console.log("tasks ", tasks);
+        
         return tasks;
       }
     } catch (error) {
@@ -45,18 +43,18 @@ export default function ContextProvider({ children }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const folders = getAllFolders();
-        const tasks = getAlltasks();
+        const folders = await getAllFolders();
+        const tasks = await getAlltasks();
         const data = parseIt(folders, tasks);
         setTree(data);
+        setReload(false);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-    console.log("tree :  ####",tree);
+
   }, [reload]);
-  console.log("tree2",tree);
 
   const openLockedNotePopUp = () => {
     setIsLockNotePopUpOpen(true);

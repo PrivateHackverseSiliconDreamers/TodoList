@@ -12,6 +12,7 @@ import LockedNote_popup from "../components/LockedNote_popup";
 import LockedPage from "./LockedPage";
 import axios from "axios";
 import { updateCompletedAPI, updateSaveNoteAPI } from "../APIs/api";
+import {useNavigate} from 'react-router-dom';
 
 const TaskPage = () => {
   const { taskFolder, taskName } = useParams();
@@ -26,21 +27,23 @@ const TaskPage = () => {
     openLockedNotePopUp,
     setReload,
   } = useContextProvider();
+  const navigate  = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const [isUnlocked, setIsUnLocked] = useState(false);
 
   const handleCheckboxChange = async (event) => {
     setIsChecked(event.target.checked);
     if (event.target.checked) {
-      // Call your function here when the checkbox is checked
+      
       try {
-        const response = await axios.post(updateCompletedAPI, {
-          title: taskName,
+        const response = await axios.put(updateCompletedAPI, {
+          title: taskName
         });
         if (response.status == 200) {
           setReload(true);
+          navigate('/');
+          alert('Task moved to completed folder');
         }
-        console.log("Checkbox is checked");
       } catch (error) {
         console.log(error);
       }
@@ -48,7 +51,7 @@ const TaskPage = () => {
   };
   const handleSaveNote = async () => {
     try {
-      const response = await axios.post(updateSaveNoteAPI, {
+      const response = await axios.put(updateSaveNoteAPI, {
         title: taskName,
         description : textValue
       });
@@ -60,15 +63,12 @@ const TaskPage = () => {
     }
   };
   
-
-  console.log(tree);
   const text =
     tree.length > 0
       ? tree
           .find((folder) => folder.folder_name === taskFolder)
           .content.find((task) => task.title === taskName).text
       : "";
-  console.log(text);
   const [textValue, setTextValue] = useState(text);
   useEffect(() => {
     setTextValue(text);
@@ -81,11 +81,10 @@ const TaskPage = () => {
   const taskIndex = folder.content.findIndex((task) => task.title === taskName);
   const isLock = tree[folderIndex].content[taskIndex].locked;
   const passWord = tree[folderIndex].content[taskIndex].password;
-  console.log(isLock);
 
   return (
     <>
-      {isLock && isUnlocked === false ? (
+      {isLock===1 && isUnlocked === false ? (
         <LockedPage setIsUnLocked={setIsUnLocked} password={passWord} />
       ) : (
         <>

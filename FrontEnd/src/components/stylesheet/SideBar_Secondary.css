@@ -134,26 +134,31 @@
 }
 .tasks-title-div{
     display: flex;
-    border-bottom: 1px solid black;
     align-items: center;
-    justify-content: space-between;
-    margin: 0rem 2rem;
-    padding: 1.3rem 0rem .5rem;
+    justify-content: space-between; 
+    margin: 0 1.5rem;  
+    margin-top: .2rem;
+    padding: 1.3rem .8rem .5rem;
     cursor: pointer; 
+    border-bottom: 1px solid black;
 
 
 }
 .tasks-title-div:hover{
     transform: scale(1.02);
     transition: all .2s  ease;
+
+}
+.tasks-title-div:active{
+    background-color: #c9c8c8;
+    border-radius: 8px;
+    border: none;
 }
 
 .task-title-text{
     font-size: 1.3rem;
     padding: 0;
     margin: 0;
-
-    
 }
 
 .task-date{

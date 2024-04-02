@@ -10,9 +10,9 @@ const LockedNote_popup = ({ onClose, taskName }) => {
   const { setReload } = useContextProvider();
   const handleCreatePassword = async () => {
     try {
-      const response = await axios.post(createPasswordAPI, {
+      const response = await axios.update(createPasswordAPI, {
         title: taskName,
-        password: taskPassword,
+        password: taskPassword
       });
       if (response.status == 200) {
         setReload(true);

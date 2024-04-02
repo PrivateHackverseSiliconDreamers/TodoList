@@ -5,8 +5,7 @@ import './stylesheet/LockedPage.css';
 const LockedPage = ({setIsUnLocked,password}) => {
   const [verifyPasswordValue, setVerifyPasswordValue] = useState("")
   const checkPassword = () =>{
-    console.log(password);
-    console.log(verifyPasswordValue);
+
     if(verifyPasswordValue==password){
       setIsUnLocked(true);
     } else {

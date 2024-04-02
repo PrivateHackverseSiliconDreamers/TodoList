@@ -20,114 +20,7 @@ const SideBar_Main = ({ children }) => {
     tree,
     setTree,
   } = useContextProvider();
-
-  // const [isFolderPopUpOpen, setIsFolderPopupOpen] = useState(false);
-
-  // const openFolderPopup = () => {
-  //     setIsFolderPopupOpen(true)
-  // }
-  // const closeFolderPopup = () => {
-  //     setIsFolderPopupOpen(false)
-  // }
-  /* 
-    const menuItems = [
-        {
-        name: 'All Tasks',
-        path: '/',
-        id: 1,
-        },
-        {
-        name: 'Completed',
-        path: '/',
-        id: 2,
-        },
-    ]; */
-  const data = [
-    {
-      folder_name: 'personnel',
-      id: 1,
-      content: [
-        {
-          title: 'pour demain',
-          folder_name: 'personnel',
-          id: 1,
-          text: 'faire X, faire Y, faire Z',
-          date: '29-01-2015',
-          completed: false,
-          locked: false,
-          password: '0000',
-        },
-        {
-          title: "pour aujourd'hui",
-          folder_name: 'personnel',
-          id: 4,
-          text: 'faire A, faire B, faire C',
-          date: '29-01-2015',
-          completed: false,
-          locked: false,
-          password: '0000',
-        },
-      ],
-    },
-
-    {
-      folder_name: 'public',
-      id: 2,
-      content: [
-        {
-          title: 'pour le groupe',
-          id: 1,
-          folder_name: 'public',
-          text: 'faire ceci, faire cela, faire ceci cela',
-          date: '29-01-2015',
-          completed: false,
-          locked: false,
-          password: '0000',
-        },
-        {
-          title: 'pour SMA',
-          folder_name: 'public',
-          id: 2,
-          text: 'faire 1, faire 2, faire 3',
-          date: '29-01-2015',
-          completed: false,
-          locked: true,
-          password: '4568',
-        },
-      ],
-    },
-    {
-      folder_name: 'private',
-      id: 3,
-      content: [
-        {
-          title: 'liste des cadeaux',
-          folder_name: 'private',
-          id: 1,
-          text: 'acheter ceci cela',
-          date: '29-01-2015',
-          completed: false,
-          locked: true,
-          password: '0000',
-        },
-        {
-          title: 'confidentiel',
-          folder_name: 'private',
-          id: 2,
-          text: 'ne rien afficher',
-          date: '29-01-2015',
-          completed: false,
-          locked: true,
-          password: '0000',
-        },
-      ],
-    },
-  ];
-  //const data = [];
-  /* useEffect(() => {
-    setTree(data);
-  }, []); */
-  console.log(tree);
+  console.log(tree, "logged tree");
   const [keyClicked, setKeyClicked] = useState(null);
   const filteredItem = tree.filter((item) => item.id === keyClicked);
   console.log(filteredItem, "filteredItem");
@@ -143,9 +36,9 @@ const SideBar_Main = ({ children }) => {
         </div>
         <div className="mainSB-navigation">
           <ul className="mainSideBar-ul">
-            {tree.map((item) => (
+            {tree.map((item,index) => (
               <li
-                key={item.id}
+                key={index}
                 onClick={() => setKeyClicked(item.id)}
                 className="main-menuItems"
               >
@@ -174,7 +67,6 @@ const SideBar_Main = ({ children }) => {
       </div>
       
       <div style={{ paddingLeft: "" }}>
-        {console.log(filteredItem)}
         <SideBar_Secondary folder={filteredItem[0] || tree[0]} />
       </div>
     </div>

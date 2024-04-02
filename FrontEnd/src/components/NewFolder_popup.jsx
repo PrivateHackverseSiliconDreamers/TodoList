@@ -22,7 +22,7 @@ const NewFolder_popup = ({ onClose }) => {
       console.log(error);
     }
   };
-  // console.log('I have been clicked')
+
   return (
     <div className="folderpopup-main">
       <div className="folderpopup-container">
