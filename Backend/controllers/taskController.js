@@ -9,7 +9,7 @@ const {createTask,deleteTask,updateTask, updateTaskDescription,getAllTasks,getAl
 exports.createtask=async (req, res, next)=> {
 
     const {title,completed,locked,folder_name,date,password}=req.body
-    console.log(title)
+  
 
     try {
         createTask(title,completed,locked,folder_name,date,password)
@@ -24,7 +24,7 @@ exports.createtask=async (req, res, next)=> {
 exports.deletetask=async (req, res, next)=> {
 
     const {title}=req.body
-    console.log(title)
+  
 
     try {
         deleteTask(title)
@@ -41,7 +41,7 @@ exports.deletetask=async (req, res, next)=> {
 exports.updatetask=async (req, res, next)=> {
 
     const {title,description,completed,locked,folder_name,date,password}=req.body
-    console.log(title)
+    
 
     try {
         updateTask(title, description, completed,locked,folder_name, date,password)
@@ -56,7 +56,7 @@ exports.updatetask=async (req, res, next)=> {
 exports.updatetaskdesc=async (req, res, next)=> {
 
     const {title,description}=req.body
-    console.log(title)
+   
 
     try {
         updateTaskDescription(title,description)
@@ -72,7 +72,7 @@ exports.updatetaskdesc=async (req, res, next)=> {
 exports.updatetaskpass=async (req, res, next)=> {
 
     const {title,password}=req.body
-    console.log(password)
+  
 
     try {
         updateTaskPassword(title,password)
@@ -113,7 +113,7 @@ exports.getalltask=async (req, res, next)=> {
         getAllTasks()
         .then(taks=>{
             res.status(200).send({taks})
-            console.log(taks)
+           
         })
     }catch (error){
         next(error)
@@ -145,7 +145,7 @@ exports.getallstackfolder=async (req,res,next)=>{
 exports.completetask=async (req,res,next)=>{
     
 const {title}=req.body
-console.log(title)
+
 
 try {
     completeTask(title)
@@ -161,7 +161,7 @@ try {
 exports.noncompletetask=async (req,res,next)=>{
     
     const {title}=req.body
-    console.log(title)
+  
     
     try {
         NoncompleteTask(title)
@@ -182,7 +182,7 @@ exports.getallstackcompleted=async (req,res,next)=>{
         .then(tasksCompleted=>{
             
             res.status(200).send({tasksCompleted})
-            console.log(tasksCompleted)
+            
         })
         
     }catch (error){

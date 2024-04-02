@@ -11,7 +11,7 @@ const {createFolderTask,getFolderByName,updateFolderByName,getAllFolder, deleteF
 exports.createfolder=async (req, res, next)=> {
 
     const {folder_name}=req.body
-    console.log(folder_name)
+
 
     try {
         createFolderTask(folder_name)
@@ -27,7 +27,7 @@ exports.createfolder=async (req, res, next)=> {
 exports.deletefolder=async (req, res, next)=> {
 
     const {folder_name}=req.body
-    console.log(folder_name)
+    
 
     try {
         deleteFolder(folder_name)
@@ -45,7 +45,7 @@ exports.deletefolder=async (req, res, next)=> {
 exports.updatefolder=async (req, res, next)=> {
 
     const {folder_name}=req.body
-    console.log(folder_name)
+    
 
     try {
         updateFolderByName(folder_name)
@@ -66,7 +66,7 @@ exports.getfolder=async (req, res, next)=> {
         getFolderByName(folder_name)
         .then((folder)=>{
             res.status(200).send({folder})
-            console.log(folder)
+          
         })
       
     }catch (error){
@@ -87,7 +87,7 @@ exports.getallfolder=async (req, res,next) => {
         .then(folders => {
         JSON.stringify(folders);
         res.status(200).send({folders})
-        console.log(folders)
+      
      })
     }catch (error){
         next(error)
