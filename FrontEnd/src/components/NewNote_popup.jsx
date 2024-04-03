@@ -1,17 +1,16 @@
-import React from "react";
-import "./stylesheet/NewNote_popup.css";
-import { useState } from "react";
-import close_icon from "../assets/images/black_cross_icon.svg";
-import { useContextProvider } from "../Contexts/ context";
-import { createNoteAPI } from "../APIs/api";
-import { getCurrentDate } from "../Contexts/date";
-import axios from "axios";
+import React from 'react';
+import './stylesheet/NewNote_popup.css';
+import { useState } from 'react';
+import close_icon from '../assets/images/black_cross_icon.svg';
+import { useContextProvider } from '../Contexts/ context';
+import { createNoteAPI } from '../APIs/api';
+import { getCurrentDate } from '../Contexts/date';
+import axios from 'axios';
 
 const NewNote_popup = ({ onClose, selectedFolder }) => {
   const { setReload } = useContextProvider();
-  const [noteName, setNoteName] = useState("");
+  const [noteName, setNoteName] = useState('');
   const handleCreateNewNote = async () => {
-   
     try {
       const response = await axios.post(createNoteAPI, {
         title: noteName,
@@ -20,7 +19,7 @@ const NewNote_popup = ({ onClose, selectedFolder }) => {
         locked: false,
         folder_name: selectedFolder,
         date: getCurrentDate(),
-        password: "0000",
+        password: '0000',
       });
       if (response.status == 200) {
         setReload(true);
@@ -43,6 +42,7 @@ const NewNote_popup = ({ onClose, selectedFolder }) => {
           />
           <div className="notePopup-btn-div">
             <button
+              type="submit"
               onClick={() => {
                 onClose();
                 handleCreateNewNote();

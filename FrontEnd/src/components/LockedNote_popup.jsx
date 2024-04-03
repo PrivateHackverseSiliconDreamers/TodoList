@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import "./stylesheet/LockedNotes_popup.css";
-import close_icon from "../assets/images/black_cross_icon.svg";
-import { useContextProvider } from "../Contexts/ context";
-import { createPasswordAPI } from "../APIs/api";
-import axios from "axios";
-import {useNavigate} from 'react-router-dom'
+import React, { useState } from 'react';
+import './stylesheet/LockedNotes_popup.css';
+import close_icon from '../assets/images/black_cross_icon.svg';
+import { useContextProvider } from '../Contexts/ context';
+import { createPasswordAPI } from '../APIs/api';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const LockedNote_popup = ({ onClose, taskName }) => {
   const navigate = useNavigate();
-  const [taskPassword, setTaskPassword] = useState("");
+  const [taskPassword, setTaskPassword] = useState('');
   const { setReload } = useContextProvider();
 
   const handleCreatePassword = async () => {
     try {
       const response = await axios.put(createPasswordAPI, {
         title: taskName,
-        password: taskPassword
+        password: taskPassword,
       });
       if (response.status == 200) {
         setReload(true);
@@ -31,7 +31,7 @@ const LockedNote_popup = ({ onClose, taskName }) => {
         <div className="lockpopup-content">
           <p>Enter the password</p>
           <input
-            type="password"
+            type="text"
             name=""
             value={taskPassword}
             onChange={(e) => setTaskPassword(e.target.value)}

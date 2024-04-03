@@ -1,6 +1,9 @@
+const { deleteTaskByFolder } = require("./tasksServices");
+
  
  const sqlite3 = require("sqlite3").verbose();
  const db = new sqlite3.Database("database.db");
+ 
  
  // Crée une nouvelle entrée dans la table 'folder'
   function createFolderTask(folder_name) {
@@ -78,7 +81,7 @@ function getAllFolder() {
     // Supprime un folder en fonction de son nom
 function deleteFolder(folder_name) {
   db.run(
-    `DELETE FROM Folder WHERE title = ?`,
+    `DELETE FROM Folder WHERE folder_name = ?`,
     [folder_name],
     function (err) {
       if (err) {
@@ -86,10 +89,11 @@ function deleteFolder(folder_name) {
       } else {
         console.log(`folder "${folder_name}" supprimée.`);
       }
+      deleteTaskByFolder(folder_name);
     }
   );
 }
   
-  
+
 
   module.exports={createFolderTask,getFolderByName,updateFolderByName,getAllFolder,deleteFolder}

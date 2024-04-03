@@ -16,6 +16,7 @@ const SideBar_Secondary = ({ folder }) => {
     content: [],
     id: 1,
   };
+
   const { openNotePopup, notePopUpOpen, closeNotePopup } = useContextProvider();
   const [filterbtn, setFilterBtn] = useState(false);
   const [searchInput, setSearchInput] = useState('');
@@ -37,6 +38,13 @@ const SideBar_Secondary = ({ folder }) => {
 
   const searchPlaceholder = `Search ${selectedFolder.folder_name}`;
 
+  const filterTaskBasedOnSearch = () => {
+    return selectedFolder.content.filter((item) => {
+      return searchInput.toLowerCase() === ''
+        ? true
+        : item.title.toLowerCase().includes(searchInput.toLowerCase());
+    });
+  };
 
   return (
     <div className="sideBar-sec-container">
@@ -67,7 +75,14 @@ const SideBar_Secondary = ({ folder }) => {
 
         <div className="filter-div">
           <div className="search-div">
-            <input type="text" name="" id="" placeholder={searchPlaceholder} />
+            <input
+              type="text"
+              name=""
+              id=""
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              placeholder={searchPlaceholder}
+            />
             <button className="search-btn">
               <img src={search_icon} alt="" />
             </button>
@@ -89,7 +104,7 @@ const SideBar_Secondary = ({ folder }) => {
 
         <div className="task-title-container">
           {'' ||
-            selectedFolder.content.map((item, index) => {
+            filterTaskBasedOnSearch().map((item, index) => {
               return item.locked ? (
                 <div
                   key={item.id}

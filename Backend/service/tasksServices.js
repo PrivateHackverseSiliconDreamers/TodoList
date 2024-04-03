@@ -159,7 +159,7 @@ function updateTaskDescription(title, description) {
       if (err) {
         console.error(err.message);
       } else {
-        console.log(`Tâche avec le titre "${title}" mise à jour avec la nouvelle description "${description}".`);
+        // console.log(`Tâche avec le titre "${title}" mise à jour avec la nouvelle description "${description}".`);
       }
     }
   );
@@ -194,6 +194,19 @@ function deleteTask(title) {
           console.error(err.message);
         } else {
           console.log(`Tâche "${title}" supprimée.`);
+        }
+      }
+    );
+  }
+  function deleteTaskByFolder(folder_name) {
+    db.run(
+      `DELETE FROM task WHERE folder_name = ?`,
+      [folder_name],
+      function (err) {
+        if (err) {
+          console.error(err.message);
+        } else {
+          console.log(`Tâches de "${folder_name}" supprimées.`);
         }
       }
     );
@@ -266,51 +279,7 @@ function filterTaskByCompleted() {
       }
     );
   }
-  
-
-  // Filtrer les tâches en fonction de la priorité
-/* function filterTaskByPriority(priority) {
-    db.all(
-      `SELECT * FROM task WHERE priority = ?`,
-      [priority],
-      function (err, rows) {
-        if (err) {
-          console.error(err.message);
-        } else {
-          rows.forEach((row) => {
-            console.log(`Tâche: ID ${row.id}, Titre: ${row.title}, Priorité: ${row.priority}`);
-          });
-        }
-      }
-    );
-  }
-   */
- /*  
-  function prioritizeTasks() {
-    db.all(
-      `SELECT * FROM task ORDER BY priority DESC`,
-      function (err, rows) {
-        if (err) {
-          console.error(err.message);
-        } else {
-          if (rows.length > 0) {
-            console.log("Tâches triées par priorité :");
-            rows.forEach(row => {
-              console.log(`ID ${row.id}, Titre: ${row.title}, Priorité: ${row.priority}`);
-            });
-          } else {
-            console.log("Aucune tâche trouvée.");
-          }
-        }
-      }
-    );
-  }
-  
- */
-
-
-
-  
+    
   
 module.exports={createTask,
   deleteTask,
@@ -321,6 +290,7 @@ module.exports={createTask,
   filterTaskByDate
   //filterTaskByPriority
   ,completeTask,
+  deleteTaskByFolder,
   //prioritizeTasks,
   getAllTaskFolder,
   getAllTaskCompleted,
